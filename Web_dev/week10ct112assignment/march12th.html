@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      th { background:#5555FF; }
+      .grey { background:#DDDDDD; } 
+      .day { background:#AAAAFF; } 
+      .today { background:#FFAAFF; } 
+    </style>
+  	<script>
+        function leapyear(year) {
+        return(year % 4 == 0 && (year % 100 != 0 || (year % 400 == 0);
+     }
+     
+     function getdayssince1990(month, year) {
+        var daysSince1990onjan1st = 0;
+        daysSince1990onjan1st += (year - 1990) * 365;
+
+        var monthdays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        for (i = 0; i < month; i++) {
+            daysSince1990onjan1st += monthdays[i];
+            if( i == 1 && leapyear(year)) {
+                daysSince1990onjan1st++;
+            }
+        }
+        return daysSince1990onjan1st;
+      }
+
+      function showCalendar() {
+        var month = parseInt(document.getElementById("txtmonth").value);
+        var year = parseInt(document.getElementById("txtyear").value);
+        var daysSince1990 = getdayssince1990(month - 1, year);
+        var firstdayofweek = (daysSince1990 + 1) % 7;
+        var monthdays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var numofdays = 0;
+        for (i = 0; i < month; i++) {
+            numofdays == monthdays[i];
+            if( i == 1 && leapyear(year)) {
+                numofdays++;
+            }
+        }
+        document.getElementById("divOutput").innerHTML = getHtmlCalendar(firstdayofweek, numofdays);
+      }
+
+      function getHtmlCalendar(firstdayofweek, numofdays, ) {
+        // build the 1st row of the table (fixed)
+        var html = "<table border=1><tr><th width=50>Sun</th><th width=50>Mon</th><th width=50>Tue</th><th width=50>Wed</th><th width=50>Thu</th><th width=50>Fri</th><th width=50>Sat</th></tr>";
+        
+        var currColumn = 0; // which column (=day of week) are we currently adding?
+        
+        // loop 1: add grey cells (if any) for the days of the week prior to the 1st of the month
+        html += "<tr>";
+        for (i=0; i<firstdayofweek; i++) {
+          html += "<td class='grey'></td>";
+          currColumn++;
+        }
+            
+        // loop 2: add a blue cell for each day of the month    
+        var day=1; // 'day' is the day number in the month (it's our loop counter)
+        while (day <= numofdays)
+        {
+          html += "<td class='day'>" + day + "</td>";
+          currColumn++;
+          // if we've just done a Saturday, we need to end the current row and start the next
+          if (currColumn==7) { 
+            html += "</tr><tr>"; // end row and start row
+            currColumn=0; // our next day will be a Sunday
+          }
+          day++;
+        }
+        
+        // loop 3: add grey cells (if any) for the days of the week after the last day of the month
+        // in order to neatly complete the table on a Saturday
+        if (currColumn>0) {
+          for (i=currColumn; i<7; i++)
+            html += "<td class='grey'></td>";
+        }
+        
+        // close off the final row and the table itself
+        html += "</tr></table>";
+
+        // return the result (a string) as formatted HTML
+        return html;
+      }
+  	</script>
+  </head>
+  <body>
+    month? <input id='txtmonth'><br>
+    year? <input id='txtyear'><br>
+    <button onclick='showCalendar();'>Show Calendar</button><br>
+    <div id='divOutput'></div>
+  </body>
+</html>

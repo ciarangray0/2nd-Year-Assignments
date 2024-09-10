@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Email
+comment0.text=\nciaran\ gray\n
+comment1.params=customer\ order\ payment\ daddress\ baddress
+comment1.target=Email(Customer,\ Order,\ Payment,\ Address,\ Address)
+comment2.params=
+comment2.target=java.lang.String\ getOrderSum()
+comment3.params=
+comment3.target=void\ setOrderSum()
+comment4.params=
+comment4.target=void\ emailOrderSummary()
+comment5.params=
+comment5.target=void\ emailOfRegret()
+numComments=6

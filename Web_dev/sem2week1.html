@@ -1,0 +1,18 @@
+<html>
+<head>
+<script>
+function moveTheImage() {
+    var y = Math.random() * 600;
+    var z = Math.random() * 600;
+document.getElementById("divImg").style.left = y+"px";
+document.getElementById("divImg").style.top = z+"px";
+}
+</script>
+</head>
+<body>
+<div id='divImg' onClick="moveTheImage();" style='position:absolute'>
+<img src='https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png' width="300px" height="'300px"> 
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Payment
+comment0.text=\n\ ciaran\ gray\n
+comment1.params=customer\ cardType\ cardNumber\ date\ bankName
+comment1.target=Payment(Customer,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ validateCardType()
+comment3.params=
+comment3.target=java.lang.String\ validateCardNumber()
+comment4.params=
+comment4.target=java.lang.String\ getCardType()
+comment5.params=
+comment5.target=java.lang.String\ getCardNumber()
+comment6.params=
+comment6.target=java.lang.String\ getDate()
+comment7.params=
+comment7.target=java.lang.String\ getBankName()
+comment8.params=
+comment8.target=java.lang.String\ paymentDetails()
+numComments=9

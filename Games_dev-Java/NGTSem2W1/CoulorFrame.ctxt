@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=CoulorFrame
+comment1.params=
+comment1.target=CoulorFrame()
+comment2.params=g
+comment2.target=void\ paint(java.awt.Graphics)
+comment3.params=
+comment3.target=java.awt.Color\ getRandomColor()
+comment4.params=args
+comment4.target=void\ main(java.lang.String[])
+numComments=5

@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Bus_Vendors
+comment1.params=trip
+comment1.target=void\ addTrip(Trip)
+comment2.params=id
+comment2.target=Trip\ getTrip(int)
+comment3.params=
+comment3.target=void\ getAllAvailableTrips()
+comment4.params=booking
+comment4.target=boolean\ makeBooking(Booking)
+numComments=5

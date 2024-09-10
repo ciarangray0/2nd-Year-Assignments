@@ -1,0 +1,75 @@
+---
+title: "Assignment 2"
+author: "Ciaran Gray, id=22427722"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Simple example
+
+I have created a vector of data called `data1` and have calculated some numerical and graphical summaries.
+
+These are the data:
+
+```{r create data}
+
+data1 <- c(10, 23, 14, 12, 34, 26, 28, 24)
+
+```
+
+The mean is
+
+```{r calculate mean}
+mean(data1)
+
+```
+
+The summary statistics (minimum, maximum, $Q_1$, median, and $Q_3$) are:
+
+```{r summary stats}
+summary(data1)
+```
+
+
+The five number summary which uses Tukey's method to estimate the lower and upper quartiles ($Q_1$ and $Q_3$) is given below. Sometimes there are small differences between the quartiles given by the `summary` function and quartiles given using Tukey's method.
+
+
+```{r}
+fivenum(data1)
+```
+
+
+
+
+A boxplot of the data below uses Tukey's method. I would describe the shape of the distribution using the boxplot as left-skewed, which indicated that the data is not evenly distributed as the median is not central within the data.It also shows that the data is more concentrated around the median as the box itself is taller than the whiskers.
+
+```{r}
+
+boxplot(data1)
+
+```
+
+
+A histogram with R's default settings is shown below. I would describe the shape of the distribution using the histogram as left skewed, which shows that most of the data is concentrated around the first interval. Because this histogram has 5 bins it may not be as accurate as a histogram with say 10 bins.   
+
+
+```{r}
+hist(data1)
+```
+
+
+
+A histogram with about ten bins is also shown below.
+
+```{r}
+hist(data1, breaks = 10)
+```
+

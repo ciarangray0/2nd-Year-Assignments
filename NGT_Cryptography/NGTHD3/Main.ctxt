@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=min\ max
+comment2.target=int\ genPrime(int,\ int)
+comment3.params=p
+comment3.target=boolean\ isPrime(int)
+comment4.params=p
+comment4.target=int\ primRoot(int)
+comment5.params=p\ a
+comment5.target=boolean\ isPrimRoot(int,\ int)
+comment6.params=p
+comment6.target=int\ genPriv(int)
+comment7.params=base\ privKey\ prime
+comment7.target=int\ calcPub(int,\ int,\ int)
+comment8.params=pubKey\ privKey\ prime
+comment8.target=int\ calcSec(int,\ int,\ int)
+comment9.params=base\ exponent\ modulus
+comment9.target=int\ modPow(int,\ int,\ int)
+numComments=10

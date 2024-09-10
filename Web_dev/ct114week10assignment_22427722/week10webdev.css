@@ -1,0 +1,19 @@
+table {
+    border: 1px;
+    border-collapse: collapse;
+    padding: 5px;
+    background-color: darkgrey;
+    font-family: Arial, sans-serif;
+    color: aliceblue;
+}
+th {
+    background-color: darkgrey;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+td {
+    background-color: lightgrey;
+    text-align: center;
+    vertical-align: middle;
+}

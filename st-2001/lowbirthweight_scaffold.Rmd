@@ -1,0 +1,161 @@
+---
+title: "Exploring Factors Associated with Low Birthweight"
+author: "Ciaran Gray, id = 22427722"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: word_document
+---
+
+
+# Exploratory data analysis
+
+In this assignment you will carry out an **exploratory data analysis** of factors thought to be associated with low birthweight.  The factors of interest are maternal smoking during pregnancy, history of premature labour, and number of visits to a physician in first trimester (the first trimester is the first three months of the pregnancy). The goal of the exploratory data analysis is to gain a better understanding of these factors and their associations with low birthweight in our dataset.  
+
+## Load the Libraries and Data Needed
+
+The dataset you will be using is available in the `aplore3` package and you will use the `tidyverse` package for data manipulation. You may not have these installed.  If you get a yellow message to install one or both packages when you open this document in Rstudio, click on install. If you need to install them manually then remove the # and run following code in $\texttt{R}$. You will only need to install the packages once.
+
+```{r, eval = FALSE}
+#install.packages("tidyverse") 
+   #install.packages("aplore3")      
+```
+
+Load the required packages and make the birthweight dataset, `lowbwt` available using the `data` function as follows:   
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(aplore3)
+
+data(lowbwt)
+```
+
+The low birthweight data is from the textbook "Applied Logistic Regression" by Hosmer and Lemeshow.  The data are on 189 babies born at the Bayside Medical Centre in Massachusetts, in 1986. The following is a description of the variables in this dataset.
+
+|Name|	Description|
+|:------|:------------------------------------------------------------------------|
+|subject| identification code|
+|low |low birthweight ("< 2500 g" or ">= 2500 g")|
+|age |age of mother|
+|lwt|weight at last menstrual period (pounds)|
+|race |race (Black, White, Other)|
+|smoke |smoked during pregnancy (Yes, No)|
+|ptl |premature labour history (None, One, Two, etc.)|
+|ht |history of hypertension (Yes, No)|
+|ui |uterine irritability  (Yes, No)|
+|ftv |number of visits to physician during 1st trimester (three categories: None, One, Two, etc.)|
+|bwt |birthweight (in grams)|
+
+# Tabulations
+
+The key variable of interest is `low` which represents whether a baby is born low birthweight, defined as a birthweight below 2,500 grams.
+
+```{r}
+lowbwt %>% select(low) %>% table()
+```
+
+The tabulation shows 59 of the babies were low birthweight, and 130 were not low birthweight. 
+
+Let's explore the association between smoking during pregnancy and low birthweight by cross-tabulating the two variables `low` and `smoke`.
+
+```{r}
+lowbwt %>% select(smoke, low) %>% table()
+```
+From the cross-tabulation, we see that in this dataset 44+30 = 74 mothers smoked during pregnancy, and 86+29=115 did not. It seems the proportion of low birthweight babies is higher for mothers who smoked during pregnancy than those who did not smoke - let's calculate row percentages so we can compare the proportion of low birthweight babies for mothers who smoked with the proportion of low birthweight babies for mothers who did not smoke.
+
+```{r}
+lowbwt %>% select(smoke, low) %>% table() %>% prop.table(margin = 1)
+```
+
+We now explore the association between the mother having a history of any premature labour and low birthweight. First, in the following chunk, we recode the `ptl` variable into two categories, 0 for no premature labour and 1 for 1 or more premature labours, and call the new variable `ptl_any`.
+
+```{r}
+lowbwt<-lowbwt %>% 
+  mutate(ptl_any = ifelse(ptl =="None", 0, 1))
+```
+
+**Task 1**: In the following $\texttt{R}$ chunk explore the association between whether the mother had any previous premature labour (`ptl_any`) and whether the baby was born with low birthweight (`low`), using both counts and appropriate proportions/percentages. Describe your findings in 1-2 sentences.
+
+
+```{r}
+lowbwt %>% select(ptl_any, low) %>% table()
+lowbwt %>% select(ptl_any, low) %>% table() %>% prop.table(margin = 1)
+```
+1)The correlation between mothers with previous pre-mature labours and babies with lowbirthweight indicate that there is a higher chance (60%) that a baby will be born with a low birth weight if the mother has had previous premature labour, than a mother who hasn't (40%). But the baby will have a lower chance of being born with low birth weight (26%), if the mother hasn't experienced a pervious premature labour.
+
+**Task 2**: In the following $\texttt{R}$ chunk explore the association between the number of visits to a physician in the first trimester (`ftv`) and whether the baby was born with low birthweight (`low`), using both the counts and appropriate proportions/percentages. Describe your findings in 1-2 sentences.
+
+```{r}
+contingency_table <- lowbwt %>% select(ftv, low) %>% table()
+row_percentages <- prop.table(contingency_table, margin = 1)
+
+contingency_table
+row_percentages
+```
+2)It seems from the statistics above that the most babies born with low birthweight had no visits to the physician in the first trimester, and the highest percentage of babies born with low birthweight had no visits to the physician in the first trimester. However, let it be noted that the percentage of babies born with low birthweight with 1 visit to the physician in the first trimester (23%) is lower than those with 2 visits (29%), which could indicate that more visits doesn't necessarily mean a lower chance of low birthweight.
+
+# Barcharts
+
+Now we will create some barcharts.
+
+## Barchart of Low Birthweight
+
+The following is a barchart of low birthweight status.
+
+```{r}
+ggplot(lowbwt, aes(x = low, fill = low)) +
+  geom_bar()
+```
+
+**Task 3**: In the following R chunk create a bar chart of smoking status of mothers.
+
+```{r}
+ggplot(lowbwt, aes(x = smoke, fill = smoke)) +
+  geom_bar()
+```
+
+
+## Barchart of Low Birthweight by Smoking Status
+
+Below is a stacked barchart of low birthweight of the babies by smoking status of mothers.
+
+```{r}
+ggplot(lowbwt, aes(x = smoke)) +
+     geom_bar(aes(fill = low), position = "fill") +
+     ylab("Proportion")
+```
+
+## Barchart of Low Birthweight by Preterm Labour
+
+**Task 4**: Create a stacked barchart of low birthweight by any previous preterm labour (`ptl_any`) by writing appropriate code in the R chunk below.
+
+```{r}
+ggplot(lowbwt, aes(x = ptl_any)) +
+  geom_bar(aes(fill = low), position = "fill") +
+  ylab("Proportion")
+```
+
+## Barchart of Low Birthweight by Number of Visits to Physician in first trimester
+
+**Task 5**: Create a stacked barchart of low birthweight by number of visits to the physician in the first trimester by writing appropriate code in an R chunk below.
+
+```{r}
+ggplot(lowbwt, aes(x = ftv)) +
+  geom_bar(aes(fill = low), position = "fill") +
+  ylab("Proportion")
+```
+
+## Comments on barcharts
+
+**Task 6**: Once you have created the plot write your interpretation of the association between with low birthweight and each of the three factors, based on the three barcharts.  You should mention the direction and strength of each association. (2-3 sentences)
+
+6) Based on the 3 barcharts above, I think, firstly, that the association between smoking and lowbirthweight is there, as there is a strong indication from the barchart that mothers who smoked during pregnancy experienced giving birth to babies with low birthweight at a much higher rate than those who didn't. The same can be said for mother's who had previously experienced premature labour. As for trips to a physician during the first trimester, there is clearly a higher rate of low birthweight for those who didn't go at all, however there seems to be a higher number of low birthweight for those who went 2+ times than those who went once.
+
+
+# Conclusion
+
+**Task 7**: Based on the tabulations and bar charts, write a brief conclusion on whether you think the three factors (1) mother smoking during pregnancy, (2) any preterm labour, and (3) number of visits to a physician in the first trimester, could be useful to predict if a baby might be born with low birthweight.  Do you think the relationships between low birthweight and these three factors you have observed in this dataset could be used to make inferences about the relationships in a wider population, and if so, what population?
+
+7) In conclusion, based on the statistics shown here i believe that there's a strong case for the association for smoking, previous premature labour and no visits to the physician during the first trimester and low birthweight. However, the data seems to struggle to show correlation between the number of visits to the physician and lowbirthweight, as there are more babies born with low birthweight that went to 2+ visits than those who went once. Therefore, I wouldn't say that the data shows that the more visits to the physician in the first trimester lowers the chances of low birthweight, but certainly there's a higher chance of a higher birthweight with 1 visit rather than none. I think that these observations could be used to make some inferences about the relationships of a larger population, such as all pregnant women.
+
+**Task 8**: "knit" the file as a Word (or PDF) document and submit the Word/pdf document to the Assignment 3 submission link on canvas before the deadline.  **Do not submit the .Rmd document or you will lose marks**.
+
+

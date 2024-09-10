@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet"type="text/css" href="week10webdev.css"/>
+        <script>
+            
+            function submitInfo() {
+                var options = document.getElementById("options").value;
+                var question = document.getElementById("question").value;
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+
+                if (options == "Categories") {
+                    alert("Select an option from the drop down list.");
+                    return false;
+                }
+
+                if(question == "") {
+                    alert("Please type in your question in the text area.");
+                    return false;
+                }
+
+                if(name == "") {
+                    alert("Please enter your name.");
+                    return false;
+                }
+
+                if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+                        alert("Please enter a valid email address");
+                        return false;
+                    }
+                    alert("Your information has been submitted")
+                    return true;
+            }
+        </script>
+    </head>
+    <body>
+        <table>
+            <tr>
+            <th>Question Category</th>
+            <td>
+                <select name="Options" id="options" required>
+                    <option value="Categories">--Options--</option>
+                    <option value="Goods for Sale">Goods for Sale</option>
+                    <option value="Complaints">Complaints</option>
+                    <option value="Support">Support</option>
+                </select></td>
+                </tr>
+                <tr>
+            <th>Question</th>
+            <td><textarea id="question" name="Question" rows="5" columns="50" required></textarea></td>
+            </tr>
+            <tr>
+            <th>Your Name</th>
+            <td>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </td>
+            </tr>
+            <tr>
+            <th>Your Email</th>
+            <td>
+                <label for="email">Email address:</label>
+                <input type="text" id="email" name="email" required>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+            <button onclick="submitInfo()">submit</button>
+            </td>
+            </tr>
+            </table>
+        </body>
+        </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<script>
+	  	function updateOutput() {
+	  		var txt = document.getElementById("txtUserInput").value;
+            txt = txt.replace(/\s/g, '');
+            var charlength = txt.length;
+      }
+      document.getelementById("txt").innerHTML="Total chracters:"+ charlength;
+	  	
+  	</script>
+  </head>
+  <body>
+  	<textarea id='txtUserInput' onkeyup="count();" value="Type your text here."></textarea><br>
+  	<p id='info'> Total Characters : 0</p>
+</body>
+</html>

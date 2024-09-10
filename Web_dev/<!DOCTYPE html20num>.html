@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Twenty random numbers</title>
+    <script>
+    function handleClick() {
+        // create 20 random numbers and find the biggest
+        var biggest = 0;
+        for (var i=0; i<20; i++) {
+            var num = Math.floor( Math.random()*1000 );
+            if (num>biggest)
+            biggest = num;
+        }
+        var res = "Of 20 random numbers, the biggest was
+        "+biggest;
+        // display the result
+        var p = document.getElementById(myParagraph);
+        p.innerHTML = res;
+        }
+        </script>
+        </head>
+        <body>
+            <p id='myParagraph'>
+                Results will display here
+            </p>
+            <button onclick='handleClick();'>Demo</button>
+        </body>
+        </html>
